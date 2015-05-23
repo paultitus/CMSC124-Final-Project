@@ -1,6 +1,6 @@
 begin vars
-	string_a, string_b, string_c use as string
-	int_a, int_b use as int
+	string_a, string_b, string_c use as word
+	int_a, int_b use as number
 end vars
 begin statements
 	//comment
