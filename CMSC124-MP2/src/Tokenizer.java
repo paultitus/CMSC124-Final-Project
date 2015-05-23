@@ -84,8 +84,8 @@ public class Tokenizer {
 				//division
 				getChar();				
 				if (Character.toLowerCase(lastChar) == '/') {
-					//inline comment
-					currentToken = getInlineComment();
+					//comment
+					currentToken = getComment();
 				} else {
 					currentToken = new ArithmeticOperatorToken("division", "/");
 				}
@@ -163,6 +163,7 @@ public class Tokenizer {
 		//check if use as
 		if (identifier.equals("as")) {
 			if (tokenList.get(tokenList.size() - 1).content.equals("use")) {
+				removeTokenType(tokenList.get(tokenList.size() - 1));
 				tokenList.remove(tokenList.size() - 1);
 				return new KeywordToken("use as");
 			}
@@ -198,35 +199,16 @@ public class Tokenizer {
 		return new StringToken(str);
 	}
 	
-	private Token getInlineComment() {
+	private Token getComment() {
 		String comment = "";
 		getChar();
 		while (Character.toLowerCase(lastChar) != '\n' && lastChar != '\u001a') {
 			comment += lastChar;
 			getChar();
 		}
-		return new CommentToken("inline comment", comment);
+		return new CommentToken("comment", comment);
 	}
 	
-	private Token getBlockComment() {
-		String comment = "";
-		getChar();
-		while (lastChar != '\u001a') {
-			if (Character.toLowerCase(lastChar) == '*') {
-				//check if closing
-				getChar();
-				if (Character.toLowerCase(lastChar) == '/') {
-					break;
-				} else {
-					comment += lastChar;
-				}
-			}			
-			comment += lastChar;
-			getChar();
-		}
-		return new CommentToken("block comment", comment);
-	}
-
 	private void addTokenType(Token newToken) {
 		for (Token token : tokenTypes) {
 			if (token.equals(newToken) || (token.content.equals(newToken.content) && token.supertype.equals("Function"))) {
