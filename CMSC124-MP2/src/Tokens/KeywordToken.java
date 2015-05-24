@@ -16,4 +16,8 @@ public class KeywordToken extends VariadicToken {
 		super("keyword", content);
 		supertype = "Keyword";
 	}
+	public KeywordToken(String type, String content) {
+		super(type, content);
+		supertype = "Keyword";
+	}
 }

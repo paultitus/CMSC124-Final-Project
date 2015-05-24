@@ -15,4 +15,7 @@ public class PunctuationToken extends OperatorToken {
 	public PunctuationToken(String content) {
 		super("punctuation", content);
 	}
+	public PunctuationToken(String type, String content) {
+		super(type, content);
+	}
 }

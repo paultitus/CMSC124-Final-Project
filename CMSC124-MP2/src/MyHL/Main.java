@@ -1,3 +1,5 @@
+package MyHL;
+
 
 import java.io.File;
 
@@ -21,13 +23,14 @@ public class Main {
 		File inputFile = new File("sample.myhl");
 		Tokenizer tokenizer = new Tokenizer(inputFile);
 		tokenizer.nextToken();
-		while (!tokenizer.currentToken.type.equals("eof")) {
-//			System.out.println(tokenizer.currentToken);
-			tokenizer.nextToken();
-		}
-		tokenizer.printTokenTypes();
-		System.out.println("\n");
+		tokenizer.tokenize();
+		System.out.println("Tokenizer:\n");
 		tokenizer.printTokenList();
+		
+		SyntacticAnalyzer syntactic = new SyntacticAnalyzer(tokenizer.getTokenListNoComments());
+		syntactic.analyze();
+		System.out.println("\n\nSyntactic Analysis:\n");
+		syntactic.printErrors();
 	}
 	
 }
