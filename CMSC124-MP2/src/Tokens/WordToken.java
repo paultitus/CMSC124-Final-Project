@@ -11,9 +11,9 @@ package Tokens;
  *
  * @author obligado
  */
-public class IntegerToken extends VariadicToken {
-	public IntegerToken(String content) {
-		super("integer", content);
-		supertype = "Integer";
+public class WordToken extends Token {
+	public WordToken(String content) {
+		super("word", content);
+		supertype = "Word";
 	}
 }

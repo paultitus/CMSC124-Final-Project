@@ -1,3 +1,5 @@
+package MyHL;
+
 
 import Tokens.*;
 import java.io.File;
@@ -44,6 +46,12 @@ public class Tokenizer {
 		tokenTypes = new ArrayList();
 		tokenList = new ArrayList();
 		lastChar = ' ';
+	}
+	
+	public void tokenize() {
+		while (!currentToken.type.equals("eof")) {
+			nextToken();
+		}
 	}
 	
 	public void getChar() {
@@ -108,17 +116,17 @@ public class Tokenizer {
 				currentToken = getString();
 			} else if (Character.toLowerCase(lastChar) == '(') {
 				//add (
-				currentToken = new PunctuationToken("(");
+				currentToken = new PunctuationToken("left parenthesis", "(");
 				getChar();
 			} else if (Character.toLowerCase(lastChar) == ')') {
 				getParameterList();
-				currentToken = new PunctuationToken(")");
+				currentToken = new PunctuationToken("right parenthesis", ")");
 				getChar();
 			} else if (Character.toLowerCase(lastChar) == ',') {
-				currentToken = new PunctuationToken(",");
+				currentToken = new PunctuationToken("comma", ",");
 				getChar();
 			} else if (Character.toLowerCase(lastChar) == ';') {
-				currentToken = new PunctuationToken(";");
+				currentToken = new PunctuationToken("semicolon", ";");
 				getChar();
 			} else {
 				currentToken = new UnknownToken(lastChar + "");
@@ -130,14 +138,14 @@ public class Tokenizer {
 		tokenList.add(currentToken);
 	}
 	
-	private IntegerToken getNumber() {
+	private NumberToken getNumber() {
 		String number = "" + Character.toLowerCase(lastChar);
 		getChar();
 		while (num.indexOf(Character.toLowerCase(lastChar)) != -1) {
 			number += Character.toLowerCase(lastChar);
 			getChar();
 		}
-		return new IntegerToken(number);
+		return new NumberToken(number);
 	}
 	
 	private VariadicToken getIdentifierOrKeyword() {
@@ -153,11 +161,11 @@ public class Tokenizer {
 				//check if data type
 				for (String type : types) {
 					if (identifier.equals(type)) {
-						return new DataTypeToken(identifier);
+						return new DataTypeToken(identifier, identifier);
 					}
 				}
 
-				return new KeywordToken(identifier);
+				return new KeywordToken(identifier, identifier);
 			}
 		}
 		//check if use as
@@ -165,7 +173,8 @@ public class Tokenizer {
 			if (tokenList.get(tokenList.size() - 1).content.equals("use")) {
 				removeTokenType(tokenList.get(tokenList.size() - 1));
 				tokenList.remove(tokenList.size() - 1);
-				return new KeywordToken("use as");
+				KeywordToken useAs = new KeywordToken("use as", "use as");
+				return useAs;
 			}
 		}
 		
@@ -196,7 +205,7 @@ public class Tokenizer {
 			str += lastChar;
 			getChar();			
 		}
-		return new StringToken(str);
+		return new WordToken(str);
 	}
 	
 	private Token getComment() {
@@ -248,5 +257,19 @@ public class Tokenizer {
 		for (Token token : tokenList) {
 			System.out.println(token.supertype + " (" + token.type + "): " + token.content);
 		}
+	}
+	
+	public ArrayList<Token> getTokenList() {
+		return tokenList;
+	}
+	
+	public ArrayList<Token> getTokenListNoComments() {
+		ArrayList<Token> noComments = new ArrayList<>();
+		for (Token token : tokenList) {
+			if (!token.supertype.toLowerCase().equals("comment")) {
+				noComments.add(token);
+			}
+		}
+		return noComments;
 	}
 }

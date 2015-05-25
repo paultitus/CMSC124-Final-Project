@@ -16,5 +16,10 @@ public class DataTypeToken extends VariadicToken {
 		super("data type", content);
 		supertype = "Data Type";
 	}
+
+	public DataTypeToken(String type, String content) {
+		super(type, content);
+		supertype = "Data Type";
+	}
 	
 }

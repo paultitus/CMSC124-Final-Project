@@ -11,9 +11,9 @@ package Tokens;
  *
  * @author obligado
  */
-public class StringToken extends Token {
-	public StringToken(String content) {
-		super("string", content);
-		supertype = "String";
+public class NumberToken extends VariadicToken {
+	public NumberToken(String content) {
+		super("number", content);
+		supertype = "Number";
 	}
 }
