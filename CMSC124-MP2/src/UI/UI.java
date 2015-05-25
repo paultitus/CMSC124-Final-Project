@@ -1,4 +1,4 @@
-package Compiler;
+package UI;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -23,8 +23,13 @@ public class UI extends JPanel implements ActionListener {
   }
   
   public UI() {
-    welcomeFrame();
-    //showOutput("DIS B OUTPUT!");
+//    welcomeFrame();
+    showOutput("DIS B OUTPUT!");
+  }
+  
+  public UI(String output) {
+    //welcomeFrame();
+    showOutput(output);
   }
   
   private void welcomeFrame() {
@@ -149,6 +154,12 @@ public class UI extends JPanel implements ActionListener {
   private void runCode(File file) {
     System.out.println("call other people's codes here");
     String in = JOptionPane.showInputDialog("Enter an integer:");
+    System.out.println(in);
+  }
+  
+  private void runCode(File file, String type) {
+    System.out.println("call other people's codes here");
+    String in = JOptionPane.showInputDialog("Enter a/an " + type + ": ");
     System.out.println(in);
   }
   
