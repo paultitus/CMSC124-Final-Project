@@ -8,7 +8,7 @@ begin statements
 	int_b = 69;
 	string_a = "qwer"; //inline comment
 	string_b = "asdf";
-	string_c = "zxcv" + string_b;
+	string_c = "zxcv";
 	int_a = int_b + 1;
 	read string_a;
 	print int_b;
