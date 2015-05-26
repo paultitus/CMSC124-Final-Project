@@ -1,15 +1,12 @@
 begin vars
-	string_a, string_b, string_c use as word;
-	int_a, int_b use as number;
+x, y, z use as number;
+person use as word;
 end vars
 begin statements
-	//comment
-	int_a = 456;
-	int_b = 69;
-	string_a = "qwer"; //inline comment
-	string_b = "asdf";
-	string_c = "zxcv" + string_b;
-	int_a = int_b + 1;
-	read string_a;
-	print int_b;
+read x;
+read y;
+read person;
+z = x + y - 20;
+print z;
+print person;
 end statements
