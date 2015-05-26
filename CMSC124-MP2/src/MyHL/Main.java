@@ -31,6 +31,12 @@ public class Main {
 		syntactic.analyze();
 		System.out.println("\n\nSyntactic Analysis:\n");
 		syntactic.printErrors();
+		
+		SemanticAnalyzer semantic;
+		if (syntactic.getAST() != null) {
+			semantic = new SemanticAnalyzer(syntactic.getAST());
+			semantic.analyze();
+		}
 	}
 	
 }
